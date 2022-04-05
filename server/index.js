@@ -1,29 +1,71 @@
-const express = require('express'),
-	morgan = require('morgan'),
-	path = require('path'),
-	router = require('./routes');
+const express = require('express');
+const bodyParser = require('body-parser');
+const logger = require('morgan');
+const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const router = express.Router();
 
-// Middleware
-// Bodyparsing
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+/****************DOTENV****************/
+const dotenv = require('dotenv');
+dotenv.config({
+	path: path.join(__dirname, '.env'),
+});
+
+app.set('host', process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0');
+app.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8000);
+app.set('views', path.join(__dirname, 'views'));
+
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(
+	bodyParser.urlencoded({
+		extended: true,
+	})
+);
+
 // Serve our static build files
 app.use(express.static(path.join(__dirname, '../client/build')));
-// Provides great rout logging in our console for debugging
-app.use(morgan('dev'));
 
-// Import the routing setup from our Router
-app.use('/', router);
+/****************DEFAULT API ENDPOINT****************/
+app.use('/api', router);
 
-//Serving react on routes unused by previous routing
+/****************SERVER****************/
+if (process.env.NODE_ENV === 'development') {
+	app.use(errorHandler());
+} else {
+	app.use((err, req, res, next) => {
+		res.status(500).send({
+			error: 1,
+			err,
+			message: 'Internal Server Error',
+		});
+	});
+}
+
+app.listen(app.get('port'), () => {
+	console.log(
+		'Node.js App is running at http://localhost:%d',
+		app.get('port'),
+		app.get('env')
+	);
+	console.log('Press CTRL-C to stop\n');
+});
+
+/***************************************************************/
+/************************ALL Routes****************************/
+/*************************************************************/
+const dummyRoutes = require('./routes/dummy');
+
+dummyRoutes(router);
+
+// Serving react on routes unused by previous routing
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-//Startup
-app.listen(PORT, () => {
-	console.log(`The API Server is listening on port: ${PORT}`);
-});
+module.exports = app;
+
+// // Bodyparsing
+// app.use(express.urlencoded({ extended: false }));
+// app.use(express.json());
