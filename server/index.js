@@ -6,6 +6,15 @@ const path = require('path');
 const app = express();
 const router = express.Router();
 
+/****************CROS****************/
+const cors = require('cors');
+app.use(
+	cors({
+		origin: '*',
+	})
+);
+app.options('*', cors());
+
 /****************DOTENV****************/
 const dotenv = require('dotenv');
 dotenv.config({
@@ -32,7 +41,13 @@ app.use('/api', router);
 
 /****************SERVER****************/
 if (process.env.NODE_ENV === 'development') {
-	app.use(errorHandler());
+	app.use((err, req, res, next) => {
+		res.status(500).send({
+			error: 1,
+			err,
+			message: 'Internal Server Error',
+		});
+	});
 } else {
 	app.use((err, req, res, next) => {
 		res.status(500).send({
