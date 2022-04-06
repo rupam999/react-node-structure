@@ -1,5 +1,7 @@
-const DummyQuery = require('../controllers/dummy');
+import { getDummyData } from '../controllers/dummy.js';
 
-module.exports = (router) => {
-	router.get('/dummy', DummyQuery.getRequest);
+const dummyData = (router) => {
+  router.get('/dummy', getDummyData);
 };
+
+export { dummyData };
