@@ -17,7 +17,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "docker": "docker build -f Dockerfile -t client .",
+    "docker-run": "docker run -it -p 4001:3000 client"
   },
   "eslintConfig": {
     "extends": [

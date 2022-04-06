@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "docker": "docker build -f Dockerfile -t server .",
+    "docker-run": "docker run -it -p 4002:8000 server"
   },
   "author": "",
   "license": "ISC",

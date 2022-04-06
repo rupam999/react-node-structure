@@ -1,5 +1,7 @@
 # Reference
 
+- https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
+
 - https://reactjs.org/docs/faq-structure.html
 
 - https://onoufriosm.medium.com/react-best-practices-react-at-scale-part-2-11b69b96f5e
@@ -13,3 +15,5 @@
 - https://www.xenonstack.com/insights/reactjs-project-structure
 
 - https://github.com/goldbergyoni/nodebestpractices#1-project-structure-practices
+
+- https://www.section.io/engineering-education/build-and-dockerize-a-full-stack-react-app-with-nodejs-and-nginx/
