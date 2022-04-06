@@ -1,7 +1,5 @@
 import { getDummyData } from '../controllers/dummy.js';
 
-const dummyData = (router) => {
+export const dummyData = (router) => {
   router.get('/dummy', getDummyData);
 };
-
-export { dummyData };

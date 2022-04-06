@@ -36,7 +36,6 @@ dotenv.config({
 
 app.set('host', process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0');
 app.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8000);
-app.set('views', path.join(__dirname, 'views'));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -52,7 +51,7 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 /** **************DEFAULT API ENDPOINT*************** */
 app.use('/api', router);
 
-/** **************SERVER*************** */
+/** **************DEVELOPMENT SERVER ERROR HANDLER*************** */
 if (process.env.NODE_ENV === 'development') {
   app.use(errorHandler());
 } else {

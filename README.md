@@ -7,3 +7,9 @@
 - https://dev.to/syakirurahman/react-project-structure-best-practices-for-scalable-application-18kk
 
 - https://www.tatvasoft.com/blog/reactjs-best-practices/
+
+- https://blogs.sap.com/2020/07/23/deploy-your-reactjs-application-in-cloud-foundry/
+
+- https://www.xenonstack.com/insights/reactjs-project-structure
+
+- https://github.com/goldbergyoni/nodebestpractices#1-project-structure-practices
