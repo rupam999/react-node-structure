@@ -9,5 +9,6 @@
   line-height: 2.5;
   padding: 0 10px;
   font-size: 1rem;
-  box-shadow: inset 2px 2px 3px rgb(255 255 255 / 50%), inset -2px -2px 3px rgb(0 0 0 / 50%);
+  box-shadow: inset 2px 2px 3px rgb(255 255 255 / 50%),
+    inset -2px -2px 3px rgb(0 0 0 / 50%);
 }

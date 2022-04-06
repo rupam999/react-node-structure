@@ -18,7 +18,7 @@ const __dirname = path.dirname(__filename);
 app.use(
   cors({
     origin: '*',
-  })
+  }),
 );
 app.options('*', cors());
 
@@ -36,7 +36,7 @@ app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: true,
-  })
+  }),
 );
 
 // Serve our static build files
@@ -68,7 +68,7 @@ app.listen(app.get('port'), () => {
   console.log(
     'Node.js App is running at http://localhost:%d',
     app.get('port'),
-    app.get('env')
+    app.get('env'),
   );
   console.log('Press CTRL-C to stop\n');
 });

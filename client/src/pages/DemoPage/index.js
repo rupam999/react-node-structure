@@ -10,7 +10,7 @@ const DemoPage = () => {
     setLoading(true);
     try {
       const response = await getDummyData();
-      if (response) {
+      if (response !== -1) {
         setParagraph(response);
       } else {
         setParagraph('Error');
