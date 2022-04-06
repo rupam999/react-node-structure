@@ -5,8 +5,12 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import cors from 'cors';
 import dotenv from 'dotenv';
+// Error Handler for Dev
+import errorHandler from 'errorhandler';
 // Routes
 import { dummyData } from './routes/dummy.js';
+// Middleware
+import authenticateToken from './middleware/auth.js';
 
 const app = express();
 const router = express.Router();
@@ -21,6 +25,9 @@ app.use(
   }),
 );
 app.options('*', cors());
+
+/** **************MIDDLEWARE*************** */
+app.use(authenticateToken);
 
 /** **************DOTENV*************** */
 dotenv.config({
@@ -46,23 +53,17 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 app.use('/api', router);
 
 /** **************SERVER*************** */
-// if (process.env.NODE_ENV === 'development') {
-//   app.use((err, req, res) => {
-//     res.status(500).send({
-//       error: 1,
-//       err,
-//       message: 'Internal Server Error',
-//     });
-//   });
-// } else {
-//   app.use((err, req, res) => {
-//     res.status(500).send({
-//       error: 1,
-//       err,
-//       message: 'Internal Server Error',
-//     });
-//   });
-// }
+if (process.env.NODE_ENV === 'development') {
+  app.use(errorHandler());
+} else {
+  app.use((err, req, res) => {
+    res.status(500).send({
+      error: 1,
+      err,
+      message: 'Internal Server Error',
+    });
+  });
+}
 
 app.listen(app.get('port'), () => {
   console.log(
